@@ -1,0 +1,102 @@
+        cout<<"**** choose ****"<<endl;
+        cout <<" 0) Exit "<<endl;
+        cout<< " 1) Encryption "<<endl;
+        cout<< " 2) Decryption  "<<endl;
+        cout<<"-----------------------------"<<endl;
+
+        char n1,n2,n3,n4,n5;
+        int choice;
+        cin>> choice;
+
+        if (choice ==0){
+            cout<<"You exit the program";
+            return 0;
+        }
+        else if(choice ==1 ){
+            cout <<"enter the key (five numbers) ";
+            cin>> n1>>n2>>n3>>n4>>n5;
+            cout <<"enter the message to cipher"<<endl;
+            cout<<"________________________________"<<endl;
+
+
+            char arrayEcrypt [6][6]={{'0',n1 ,n2,  n3,  n4,  n5},
+                                     {n1,'A', 'B', 'C', 'D', 'E'},
+                                     {n2,'F', 'G', 'H', 'I', 'K'},
+                                     {n3,'L', 'M', 'N', 'O', 'P'},
+                                     {n4,'Q', 'R', 'S', 'T', 'U'},
+                                     {n5,'V', 'W', 'X', 'Y', 'Z'}};
+
+            cin.ignore();
+            string sentence;
+            getline(cin, sentence);    //function that that gets the whole line of the string
+
+            for (char charr : sentence) {              //loops for every character in the input sentence
+                char arrChar = toupper(charr);           // to make it capital and change every J to I
+                if (arrChar=='J'){
+                    return 'I';
+                    return charr ;
+                }
+                if (isalpha(arrChar)){      //to check that the input characters are alphabetic or not
+                    bool found =false;
+                    for(int row=1; row<6; row++)
+                        for (int col=1; col<6; col++){
+                            if (arrayEcrypt [row][col]==arrChar ){
+                                found =true;
+                                cout<<arrayEcrypt[row][0]<<arrayEcrypt[0][col];
+                                break;}
+                            if (isspace(arrChar)) {          //checks if there is a space and prints it
+                                cout << " ";
+                            }
+                        }}
+            }}
+
+        else if (choice == 2) {
+            cout <<"enter the key (five numbers) ";
+            cin>> n1>>n2>>n3>>n4>>n5;
+            cout << "Enter the message to decipher: "<<endl;
+            cout<<"________________________________"<<endl;
+            cin.ignore();
+            string nums;
+            getline(cin, nums);
+
+            char arrayDecrypt[6][6] = {
+                    {'0', n1, n2, n3, n4, n5},
+                    {n1, 'A', 'B', 'C', 'D', 'E'},
+                    {n2, 'F', 'G', 'H', 'I', 'K'},
+                    {n3, 'L', 'M', 'N', 'O', 'P'},
+                    {n4, 'Q', 'R', 'S', 'T', 'U'},
+                    {n5, 'V', 'W', 'X', 'Y', 'Z'}
+            };
+            vector<string> DECnumber;
+            string NUMBER = "";
+
+            for (char charr : nums) {
+                if (isdigit(charr)) {       // Check if the character is a number
+                    NUMBER += charr;
+                } else if (!NUMBER.empty()) {
+                    DECnumber.push_back(NUMBER);
+                    NUMBER = "";
+                }
+                if (charr == ' ') {
+                    DECnumber.push_back(" ");
+                }
+            }
+            if (!NUMBER.empty()) {
+                DECnumber.push_back(NUMBER);
+            }
+            for (const string& num_char : DECnumber) {
+                if (num_char == " ") {       //if there is a space,print a space
+                    cout << " ";
+                } else {
+                    for (size_t i = 0; i < num_char.size(); i += 2) {  //for loop th iterate over input numberd
+                        int num = stoi(num_char.substr(i, 2));  //takes two integers and converts them to
+                        int row = num / 10;   //to get rows number
+                        int column = num % 10;   //to get column number
+                        cout << arrayDecrypt[row][column];
+                    }
+                }
+            }
+        }
+
+        return 0;
+    }
